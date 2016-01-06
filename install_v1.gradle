@@ -23,6 +23,13 @@ install {
                         url developerUrl
                     }
                 }
+                licenses {
+                    license {
+                        name licenseName
+                        url licenseUrl
+                        comments allLicenses
+                    }
+                }
                 scm {
                     //connection gitUrl
                     //developerConnection gitUrl
