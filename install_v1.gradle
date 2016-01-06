@@ -10,7 +10,9 @@ install {
                 packaging 'aar'
                 groupId publishedGroupId
                 artifactId artifact
-
+                
+                url siteUrl
+                
                 name libraryName
                 description libraryDescription
                 
@@ -30,11 +32,10 @@ install {
                     }
                 }
                 scm {
-                    connection siteUrl
-                    tag 'HEAD'
+                    //connection siteUrl
+                    //tag 'HEAD'
                     //developerConnection gitUrl
-                    //url siteUrl
-
+                    url scmSiteUrl
                 }
             }
         }
