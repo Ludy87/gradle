@@ -31,7 +31,7 @@ install {
                     }
                 }
                 scm {
-                    //connection gitUrl
+                    connection gitUrl
                     //developerConnection gitUrl
                     //url siteUrl
 
