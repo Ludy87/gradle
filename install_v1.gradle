@@ -35,7 +35,7 @@ install {
                     //connection siteUrl
                     //tag 'HEAD'
                     //developerConnection gitUrl
-                    url scmSiteUrl
+                    //url scmSiteUrl
                 }
             }
         }
