@@ -32,6 +32,7 @@ install {
                 }
                 scm {
                     connection gitUrl
+                    tag 'HEAD'
                     //developerConnection gitUrl
                     //url siteUrl
 
