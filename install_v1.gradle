@@ -31,12 +31,6 @@ install {
                         comments allLicenses
                     }
                 }
-                //scm {
-                    //connection siteUrl
-                    //tag 'HEAD'
-                    //developerConnection gitUrl
-                    //url scmSiteUrl
-                //}
             }
         }
     }
