@@ -1,1 +1,9 @@
-apply plugin: 'added'
+apply plugin: GreetingPlugin
+
+class GreetingPlugin implements Plugin<Project> {
+    void apply(Project project) {
+        project.task('hello') << {
+            println "Hello from the GreetingPlugin"
+        }
+    }
+}
