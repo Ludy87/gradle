@@ -1,0 +1,3 @@
+task compile << {
+    println 'Executing the compile task'
+}
