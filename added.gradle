@@ -6,4 +6,22 @@ class GreetingPlugin implements Plugin<Project> {
             println "Hello from the GreetingPlugin"
         }
     }
+    task createDocs {
+    def docs = file("$buildDir/docs")
+    outputs.dir docs
+    doLast {
+        docs.mkdirs()
+        new File(docs, "readme.txt").write("Read me!")
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from(createDocs) {
+                into "docs"
+            }
+        }
+    }
+}
 }
