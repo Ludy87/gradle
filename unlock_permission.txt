@@ -1,0 +1,3 @@
+<permission
+        android:name="${unlock}.AUTHORIZATION_PROVIDER"
+        android:protectionLevel="signature" />
