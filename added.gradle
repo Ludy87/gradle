@@ -1,4 +1,4 @@
-ext {
+
     def replacest(fromString, toString) {
         def manifestFile = "${projectDir.absolutePath}/src/main/AndroidManifest.xml"
         def test = "${project.rootDir}/freepro-lib/src/main/assets/test.txt"
@@ -8,4 +8,3 @@ ext {
             new File(manifestFile).write(updatedContent, 'UTF-8')
         }
     }
-}
