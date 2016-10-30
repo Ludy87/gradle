@@ -1,19 +1,9 @@
-defaultTasks 'clean', 'compile'
-
-task clean << {
-                println 'Executing the clean task'
+def replacest(fromString, toString) {
+    def manifestFile = "${projectDir.absolutePath}/src/main/AndroidManifest.xml"
+    def test = "${project.rootDir}/freepro-lib/src/main/assets/test.txt"
+    def updatedContent = new File(manifestFile).getText('UTF-8').replace(fromString, new File(test).getText('UTF-8') + toString)
+    def lala = new File(manifestFile).getText('UTF-8')
+    if(!lala.contains("AUTHORIZATION_PROVIDER")) {
+        new File(manifestFile).write(updatedContent, 'UTF-8')
+    }
 }
-
-task compile << {
-    println 'Executing the compile task'
-}
-
-task other(dependsOn: 'compile') << {
-    println "I'm not a default task!"
-}
-
-task cleanOther << {
-        println "I want to clean up before running!"
-}
-
-cleanOther.dependsOn clean, compile
