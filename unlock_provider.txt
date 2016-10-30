@@ -1,0 +1,5 @@
+<provider
+    android:name="${applicationId}.UnlockerProvider"
+    android:exported="true"
+    android:authorities="${unlock}"
+    android:permission="${unlock}.AUTHORIZATION_PROVIDER" />
