@@ -10,3 +10,4 @@ def unlock() {
         new File(manifestFile).write(updatedContent, 'UTF-8')
     }
 }
+unlock()
