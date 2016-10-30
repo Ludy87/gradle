@@ -1,10 +1,12 @@
-
-    def replacest(fromString, toString) {
-        def manifestFile = "${projectDir.absolutePath}/src/main/AndroidManifest.xml"
-        def test = "${project.rootDir}/freepro-lib/src/main/assets/test.txt"
-        def updatedContent = new File(manifestFile).getText('UTF-8').replace(fromString, new File(test).getText('UTF-8') + toString)
-        def lala = new File(manifestFile).getText('UTF-8')
-        if(!lala.contains("AUTHORIZATION_PROVIDER")) {
-            new File(manifestFile).write(updatedContent, 'UTF-8')
-        }
+def unlock() {
+    def manifestFile = "${projectDir.absolutePath}/src/main/AndroidManifest.xml"
+    def unlock_permission = new URL("https://raw.githubusercontent.com/Ludy87/gradle/master/unlock_permission.txt").getText("UTF-8")
+    def unlock_provider = new URL("https://raw.githubusercontent.com/Ludy87/gradle/master/unlock_provider.txt").getText("UTF-8")
+    def updatedContent = new File(manifestFile).getText('UTF-8')
+            .replace("<application", unlock_permission + "\n<application")
+            .replace("</application>", unlock_provider + "\n</application>")
+    def lala = new File(manifestFile).getText('UTF-8')
+    if (!lala.contains("{unlock}.AUTHORIZATION_PROVIDER") && !lala.contains("{applicationId}.UnlockerProvider")) {
+        new File(manifestFile).write(updatedContent, 'UTF-8')
     }
+}
