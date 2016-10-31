@@ -1,0 +1,99 @@
+def urlGit() { return "https://raw.githubusercontent.com/Ludy87/gradle/master/" }
+
+ext.createDir = { appID ->
+    def provider = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider")
+    def policy = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider/policy")
+    def common = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/common")
+    if (!provider.exists())
+        provider.mkdir()
+    if (!policy.exists())
+        policy.mkdir()
+    if (!common.exists())
+        common.mkdir()
+}
+
+ext.downloadLibFiles = { appID, unlock ->
+    createDir(appID)
+    //android-unlocker-library
+    //Authorization.java
+    def Authorization = new URL(urlGit() + "android-unlocker-library/provider/Authorization.java").getText("UTF-8")
+    def authorization = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider/Authorization.java")
+    if (!authorization.exists()) {
+        authorization.write(Authorization.replace("{applicationId}", appID))
+    }
+    //AuthorizationPolicy.java
+    def AuthorizationPolicy = new URL(urlGit() + "android-unlocker-library/provider/AuthorizationPolicy.java").getText("UTF-8")
+    def authorizationPolicy = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider/AuthorizationPolicy.java")
+    if (!authorizationPolicy.exists()) {
+        authorizationPolicy.write(AuthorizationPolicy.replace("{applicationId}", appID))
+    }
+    //AuthorizationContentProvider.java
+    def AuthorizationContentProvider = new URL(urlGit() + "android-unlocker-library/provider/AuthorizationContentProvider.java").getText("UTF-8")
+    def authorizationContentProvider = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider/AuthorizationContentProvider.java")
+    if (!authorizationContentProvider.exists()) {
+        authorizationContentProvider.write(AuthorizationContentProvider.replace("{applicationId}", appID))
+    }
+    //AuthorizePackagePolicy.java
+    def AuthorizePackagePolicy = new URL(urlGit() + "android-unlocker-library/provider/policy/AuthorizePackagePolicy.java").getText("UTF-8")
+    def authorizePackagePolicy = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider/policy/AuthorizePackagePolicy.java")
+    if (!authorizePackagePolicy.exists()) {
+        authorizePackagePolicy.write(AuthorizePackagePolicy.replace("{applicationId}", appID))
+    }
+    //AuthorizeFeaturesPolicy.java
+    def AuthorizeFeaturesPolicy = new URL(urlGit() + "android-unlocker-library/provider/policy/AuthorizeFeaturesPolicy.java").getText("UTF-8")
+    def authorizeFeaturesPolicy = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/provider/policy/AuthorizeFeaturesPolicy.java")
+    if (!authorizeFeaturesPolicy.exists()) {
+        authorizeFeaturesPolicy.write(AuthorizeFeaturesPolicy.replace("{applicationId}", appID))
+    }
+    //Configuration.java
+    def Configuration = new URL(urlGit() + "android-unlocker-library/common/Configuration.java").getText("UTF-8")
+    def configuration = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/common/Configuration.java")
+    if (!configuration.exists()) {
+        configuration.write(Configuration.replace("{applicationId}", appID).replace("{unlock}", unlock))
+    }
+    //UnlockProvider.java
+    def UnlockProvider = new URL(urlGit() + "android-unlocker-library/common/UnlockProvider.java").getText("UTF-8")
+    def unlockProvider = new File("${projectDir.absolutePath}/src/main/java/"
+            + appID.toString().replace(".", "/") + "/common/UnlockProvider.java")
+    if (!unlockProvider.exists()) {
+        unlockProvider.write(UnlockProvider.replace("{applicationId}", appID))
+    }
+}
+
+ext.unlock = { ->
+    def manifestFile = "${projectDir.absolutePath}/src/main/AndroidManifest.xml"
+    def unlock_permission = new URL(urlGit() + "android-unlocker-library/unlock_permission.txt").getText("UTF-8")
+    def unlock_provider = new URL(urlGit() + "android-unlocker-library/unlock_provider.txt").getText("UTF-8")
+    def updatedContent = new File(manifestFile).getText('UTF-8')
+    def manifest = new File(manifestFile).getText('UTF-8')
+
+    if (!manifest.contains("{unlock}.AUTHORIZATION_PROVIDER") || !manifest.contains("android:protectionLevel=\"signature\"")) {
+        updatedContent = updatedContent.replace("<application", unlock_permission + "\n<application")
+        new File(manifestFile).write(updatedContent, 'UTF-8')
+    }
+
+    if (!manifest.contains("{applicationId}.common.UnlockProvider") || !manifest.contains("android:exported=\"true\"")) {
+        updatedContent = updatedContent.replace("</application>", unlock_provider + "\n</application>")
+        new File(manifestFile).write(updatedContent, 'UTF-8')
+    }
+}
+
+ext.lock = { ->
+    def manifestFile = "${projectDir.absolutePath}/src/main/AndroidManifest.xml"
+    def lock = new URL(urlGit() + 'android-unlocker-library/lock.txt').getText('UTF-8')
+    def updatedContent = new File(manifestFile).getText('UTF-8')
+            .replace("<application", lock + "\n<application")
+    def isProvider = new File(manifestFile).getText('UTF-8')
+    if (!isProvider.contains("{lock}.AUTHORIZATION_PROVIDER")) {
+        new File(manifestFile).write(updatedContent, 'UTF-8')
+    }
+}
