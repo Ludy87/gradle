@@ -20,7 +20,7 @@ import org.astra_g.freepro_lib.policy.AuthorizeTest;
  *
  * @author Vincent Prat @ MarvinLabs
  */
-public class UnlockerProvider extends AuthorizationContentProvider {
+public class UnlockProvider extends AuthorizationContentProvider {
 
     // The policy used by the content provider to authorize at the package level
     private static final AuthorizationPolicy PACKAGE_LEVEL_POLICY = AuthorizePackagePolicy
