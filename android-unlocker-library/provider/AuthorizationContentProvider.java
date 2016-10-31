@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.util.Log;
-import fr.marvinlabs.unlocker.provider.Authorization.AuthorizationColumns;
+import {applicationId}.provider.Authorization.AuthorizationColumns;
 
 public abstract class AuthorizationContentProvider extends ContentProvider {
 
