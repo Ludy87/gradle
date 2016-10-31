@@ -1,7 +1,5 @@
 package {applicationId};
 
-import android.content.ContentResolver;
-
 import org.astra_g.freepro_lib.AuthorizationContentProvider;
 import org.astra_g.freepro_lib.AuthorizationPolicy;
 import org.astra_g.freepro_lib.policy.AuthorizeFeaturesPolicy;
@@ -46,41 +44,5 @@ public class UnlockProvider extends AuthorizationContentProvider {
         addAuthorizationPolicy(PACKAGE_LEVEL_POLICY);
         addAuthorizationPolicy(FEATURE_LEVEL_POLICY);
         addAuthorizationPolicy(FEATURE_TEST_LEVEL_POLICY);
-    }
-
-    /**
-     * Call this function to know if the unlocker is installed for our package
-     *
-     * @param cr The content resolver you get from the context
-     * @return true if the unlock application is installed for our package
-     */
-    public static boolean getPackageLevelAuthorization(ContentResolver cr) {
-        return getAuthorization(cr, AuthorizePackagePolicy.newInstance(
-                Configuration.PACKAGE_NAME, Configuration.PACKAGE_NAME));
-    }
-
-    /**
-     * Call this function to know if the unlocker installed for our package
-     * authorizes the given feature
-     *
-     * @param cr             The content resolver you get from the context
-     * @param queriedFeature The feature that needs to be authorized
-     * @return true if the unlock application is installed for our package and
-     * it authorizes the given feature
-     */
-    public static boolean getFeatureLevelAuthorization(ContentResolver cr,
-                                                       String queriedFeature) {
-        return getAuthorization(cr,
-                AuthorizeFeaturesPolicy.newInstanceForQuery(
-                        Configuration.PACKAGE_NAME, Configuration.PACKAGE_NAME,
-                        queriedFeature));
-    }
-
-    public static boolean getTestLevelAuthorization(ContentResolver cr,
-                                                    String queriedFeature) {
-        return getAuthorization(cr,
-                AuthorizeTest.newInstanceForQuery(
-                        Configuration.PACKAGE_NAME, Configuration.PACKAGE_NAME,
-                        queriedFeature));
     }
 }
