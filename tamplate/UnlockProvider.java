@@ -40,7 +40,7 @@ public class UnlockProvider extends AuthorizationContentProvider {
     /**
      * Constructor
      */
-    public UnlockerProvider() {
+    public UnlockProvider() {
         super(Configuration.PACKAGE_NAME);
         setOutputDebugInformation(Configuration.DEBUG_ENABLED);
         addAuthorizationPolicy(PACKAGE_LEVEL_POLICY);
