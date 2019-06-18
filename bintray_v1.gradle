@@ -22,8 +22,8 @@ artifacts {
 }
 
 // Bintray
-final Properties properties = new Properties()
-properties.load(project.rootProject.file('keys.properties').newDataInputStream())
+//final Properties properties = new Properties()
+//properties.load(project.rootProject.file('keys.properties').newDataInputStream())
 
 bintray {
     user            = properties.getProperty("bintray.user")
